@@ -60,8 +60,11 @@ public class BallController : MonoBehaviour
                 }
 
                 selectorArr = new List<GameObject>(); //reset list
-                this.transform.localScale = this.transform.localScale * 1.5f;
+                this.transform.localScale = this.transform.localScale * 1.5f;//
                 this.GetComponent<MeshRenderer>().material = Material1;
+
+                //change prefab with collision.
+                //Score for the UI
             }
         }
     }
