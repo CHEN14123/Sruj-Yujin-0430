@@ -6,11 +6,12 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public float Speed = 30;
-    private int count = 0;
+    public int count = 0;
     private Camera _camera;
     private Rigidbody _rigidbody;
     private List<GameObject> selectorArr;
     public Material Material1;
+    public Score Score1;
 
     // Start is called before the first frame update
     private void Start()
@@ -18,6 +19,7 @@ public class BallController : MonoBehaviour
         selectorArr = new List<GameObject>();
         _rigidbody = gameObject.GetComponent<Rigidbody>();
         _camera = Camera.main; //singleton pattern
+        Score1 = new Score();
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class BallController : MonoBehaviour
         //Debug.Log(input);
         Vector3 move = (input.z * _camera.transform.forward) + (input.x * _camera.transform.right);
         _rigidbody.AddForce(move * Speed * Time.fixedDeltaTime * Size);
+        //Score1.getUpdate(count);
     }
 
     private float Size = 1;
@@ -38,6 +41,8 @@ public class BallController : MonoBehaviour
         if (collision.gameObject.CompareTag("Sticky") && collision.transform.localScale.magnitude <= Size)
         {
             count = count + 1;
+            Debug.Log("count=" + count);
+            //Score1.count_tmp = Score1.count_tmp + 1;
             collision.transform.parent = this.transform;
             Size += collision.transform.localScale.magnitude;
             collision.gameObject.tag = "Stuck";
@@ -53,7 +58,7 @@ public class BallController : MonoBehaviour
             Debug.Log(selectorArr.Count);
             if (selectorArr.Count == 3)
             {
-                Debug.Log("3");
+                //Debug.Log("3");
                 for (int i = 0; i < selectorArr.Count; i++)
                 {
                     Destroy(selectorArr[i]);
