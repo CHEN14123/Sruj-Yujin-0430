@@ -10,16 +10,45 @@ public class BallController : MonoBehaviour
     private Camera _camera;
     private Rigidbody _rigidbody;
     private List<GameObject> selectorArr;
+    public List<Material> MatArr;
     public Material Material1;
-    public Score Score1;
+    public PositionZ Score1;
+
+    public GameObject prefab1;
+    public GameObject prefab2;
+    public GameObject prefab3;
+    public GameObject prefab4;
+    public GameObject prefab5;
+    public GameObject prefab6;
+    public GameObject prefab7;
+    public GameObject prefab8;
+    public GameObject prefab9;
+    public GameObject prefab10;
+
+
 
     // Start is called before the first frame update
     private void Start()
     {
+        
+        prefab1.gameObject.SetActive(false);
+        prefab2.gameObject.SetActive(false);
+        prefab3.gameObject.SetActive(false);
+        prefab4.gameObject.SetActive(false);
+        prefab5.gameObject.SetActive(false);
+        prefab6.gameObject.SetActive(false);
+        prefab7.gameObject.SetActive(false);
+        prefab8.gameObject.SetActive(false);
+        prefab9.gameObject.SetActive(false);
+        prefab10.gameObject.SetActive(false);
+
+
+
         selectorArr = new List<GameObject>();
         _rigidbody = gameObject.GetComponent<Rigidbody>();
         _camera = Camera.main; //singleton pattern
-        Score1 = new Score();
+        Score1 = new PositionZ();
+       
     }
 
     // Update is called once per frame
@@ -40,12 +69,87 @@ public class BallController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Sticky") && collision.transform.localScale.magnitude <= Size)
         {
+            
             count = count + 1;
+            int p = 0;
+            if(count==3)
+            {
+
+                prefab1.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p];
+                
+            }
+
+            if (count == 6)
+            {
+                prefab2.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p+1];
+
+            }
+
+            if (count == 9)
+            {
+                prefab3.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p+2];
+
+            }
+
+            if (count == 12)
+            {
+                prefab4.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 3];
+
+            }
+
+            if (count == 15)
+            {
+                prefab5.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 4];
+
+            }
+
+            if (count == 18)
+            {
+                prefab6.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 5];
+
+            }
+
+            if (count == 21)
+            {
+                prefab7.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 6];
+
+            }
+
+            if (count == 24)
+            {
+                prefab8.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 7];
+
+            }
+
+            if (count == 27)
+            {
+                prefab9.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 8];
+
+            }
+
+            if (count == 30)
+            {
+                prefab10.gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[p + 9];
+
+            }
+
+
+
             Debug.Log("count=" + count);
             //Score1.count_tmp = Score1.count_tmp + 1;
             collision.transform.parent = this.transform;
             Size += collision.transform.localScale.magnitude;
-            collision.gameObject.tag = "Stuck";
+            
 
             if (collision.gameObject.GetComponent<Rigidbody>())
             {
@@ -56,7 +160,7 @@ public class BallController : MonoBehaviour
             selectorArr.Add(collision.gameObject);
 
             Debug.Log(selectorArr.Count);
-            if (selectorArr.Count == 3)
+            if (selectorArr.Count % 3==0)
             {
                 //Debug.Log("3");
                 for (int i = 0; i < selectorArr.Count; i++)
@@ -65,8 +169,11 @@ public class BallController : MonoBehaviour
                 }
 
                 selectorArr = new List<GameObject>(); //reset list
-                this.transform.localScale = this.transform.localScale * 1.5f;//
-                this.GetComponent<MeshRenderer>().material = Material1;
+                //this.transform.localScale = this.transform.localScale * 1.5f;//
+                
+                //GameObject particle = Instantiate(Prefab, transform.position, transform.rotation) as GameObject;
+                //particle.transform.parent = this.transform;
+                //Prefab.gameObject.parent=this.transform;
 
                 //change prefab with collision.
                 //Score for the UI
