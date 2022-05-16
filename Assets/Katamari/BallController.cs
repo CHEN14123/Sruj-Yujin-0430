@@ -7,6 +7,7 @@ public class BallController : MonoBehaviour
 {
     public float Speed = 30;
     public int count = 0;
+    private int p = 0;
     private Camera _camera;
     private Rigidbody _rigidbody;
     private List<GameObject> selectorArr;
@@ -14,35 +15,24 @@ public class BallController : MonoBehaviour
     public Material Material1;
     public PositionZ Score1;
 
-    public GameObject prefab1;
-    public GameObject prefab2;
-    public GameObject prefab3;
-    public GameObject prefab4;
-    public GameObject prefab5;
-    public GameObject prefab6;
-    public GameObject prefab7;
-    public GameObject prefab8;
-    public GameObject prefab9;
-    public GameObject prefab10;
+    public GameObject prefabParent;
+    public List<GameObject> prefabs;
 
 
 
     // Start is called before the first frame update
     private void Start()
     {
-        
-        prefab1.gameObject.SetActive(false);
-        prefab2.gameObject.SetActive(false);
-        prefab3.gameObject.SetActive(false);
-        prefab4.gameObject.SetActive(false);
-        prefab5.gameObject.SetActive(false);
-        prefab6.gameObject.SetActive(false);
-        prefab7.gameObject.SetActive(false);
-        prefab8.gameObject.SetActive(false);
-        prefab9.gameObject.SetActive(false);
-        prefab10.gameObject.SetActive(false);
+        prefabs = new List<GameObject>();
+        foreach (Transform child in prefabParent.transform)
+        {
+            prefabs.Add(child.gameObject);
+        }
 
-
+        foreach(GameObject prefab in prefabs)
+        {
+            prefab.gameObject.SetActive(false);
+        }
 
         selectorArr = new List<GameObject>();
         _rigidbody = gameObject.GetComponent<Rigidbody>();
@@ -56,10 +46,10 @@ public class BallController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        Vector3 input = new Vector3(x, 0, z);
+        Vector3 input = new Vector3(x, 0, -z);
         //Debug.Log(input);
         Vector3 move = (input.z * _camera.transform.forward) + (input.x * _camera.transform.right);
-        _rigidbody.AddForce(move * Speed * Time.fixedDeltaTime * Size);
+        _rigidbody.AddForce(move * Speed*2 * Time.fixedDeltaTime * Size);
         //Score1.getUpdate(count);
     }
 
@@ -71,78 +61,26 @@ public class BallController : MonoBehaviour
         {
             
             count = count + 1;
-            int p = 0;
-            if(count==3)
+           
+            Debug.Log("Count value now" +count);
+            /*for(int i = 0;i<prefabs.Count;i++)
             {
-
-                prefab1.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p];
+                if(count > ((i+1) * 3)) { continue; }//skip
+                prefabs[i].gameObject.SetActive(true);
+                this.GetComponent<MeshRenderer>().material = MatArr[Random.Range(0,MatArr.Count)]; //random number
+            }*/
+            Debug.Log(p);
+            if (count % 3 == 0 && count!= 0)
+            {
                 
+                prefabs[p].gameObject.SetActive(true);
+                p = p + 1;
+                
+                this.GetComponent<MeshRenderer>().material = MatArr[Random.Range(0, MatArr.Count)]; //random number
             }
+            
 
-            if (count == 6)
-            {
-                prefab2.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p+1];
-
-            }
-
-            if (count == 9)
-            {
-                prefab3.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p+2];
-
-            }
-
-            if (count == 12)
-            {
-                prefab4.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 3];
-
-            }
-
-            if (count == 15)
-            {
-                prefab5.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 4];
-
-            }
-
-            if (count == 18)
-            {
-                prefab6.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 5];
-
-            }
-
-            if (count == 21)
-            {
-                prefab7.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 6];
-
-            }
-
-            if (count == 24)
-            {
-                prefab8.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 7];
-
-            }
-
-            if (count == 27)
-            {
-                prefab9.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 8];
-
-            }
-
-            if (count == 30)
-            {
-                prefab10.gameObject.SetActive(true);
-                this.GetComponent<MeshRenderer>().material = MatArr[p + 9];
-
-            }
-
+            
 
 
             Debug.Log("count=" + count);
