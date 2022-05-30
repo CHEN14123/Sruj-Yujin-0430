@@ -3,13 +3,18 @@ using UnityEngine.UI;
 
 public class Score_Count : MonoBehaviour
 {
-    public Text ScoreText;
-    public BallController Player;
+    public Text Score;
+        
+    public Ball_Controller_2 Player;
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        //Player = new BallController();
-        ScoreText.text = "SCORE:" + Player.count.ToString();
+        //Player = new Ball_Controller_2();
+        //Debug.Log("TEXT : "+ Player.count_green.ToString());
+        Score.text = "BLACK SCORE:" + Ball_Controller_2.count_black.ToString() + "\n" +  "WHITE SCORE:" + Ball_Controller_2.count_white.ToString() + "\n" + "GREEN SCORE:" + Ball_Controller_2.count_green.ToString();
+        //Score.text = "SCORE:" + Ball_Controller_2.count.ToString();
+        //ScoreText_white.text = "SCORE:" + Player.count_white.ToString();
+
     }
 }

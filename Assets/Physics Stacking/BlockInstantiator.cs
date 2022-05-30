@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BlockInstantiator : MonoBehaviour
 {
-    public GameObject prefab;
+    public List<GameObject> prefab;
 
     private float next_spawn_time;
 
     public float EntranceRate = 5.0f;
     private int count=0;
     private List<GameObject> selectorArr;
+    private int n = 0;
     //public Transform generationPoint;
 
     //public float distanceBetween;
@@ -23,15 +24,21 @@ public class BlockInstantiator : MonoBehaviour
     private void Start()
     {
         next_spawn_time = Time.time + EntranceRate;
+        //prefab = new List<GameObject>();
     }
 
     // Update is called once per frame
     private void Update()
     {
+
+        n = Random.Range(0, prefab.Count);
         if (Time.time > next_spawn_time)
         {
             //do stuff here (like instantiate)
-            Instantiate(prefab, this.transform.position, Quaternion.identity);
+            //foreach(GameObject prefab in prefab) 
+            //{ 
+            Instantiate(prefab[n], this.transform.position, Quaternion.identity);
+            //}
 
             //increment next_spawn_time
             next_spawn_time += EntranceRate;
