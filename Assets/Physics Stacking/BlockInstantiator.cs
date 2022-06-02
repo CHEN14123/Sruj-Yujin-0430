@@ -8,10 +8,12 @@ public class BlockInstantiator : MonoBehaviour
 
     private float next_spawn_time;
 
-    public float EntranceRate = 5.0f;
+    private float EntranceRate = 8.0f;
     private int count=0;
     private List<GameObject> selectorArr;
     private int n = 0;
+
+    
     //public Transform generationPoint;
 
     //public float distanceBetween;
@@ -30,6 +32,9 @@ public class BlockInstantiator : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //EntranceRate = Random.Range(0.0f, 8.0f);
+        //Debug.Log("Entrance Rate=" + EntranceRate);
+        Vector3 position = new Vector3(Random.Range(-32, 32), 0.4f, Random.Range(-32, 32));
 
         n = Random.Range(0, prefab.Count);
         if (Time.time > next_spawn_time)
@@ -37,7 +42,8 @@ public class BlockInstantiator : MonoBehaviour
             //do stuff here (like instantiate)
             //foreach(GameObject prefab in prefab) 
             //{ 
-            Instantiate(prefab[n], this.transform.position, Quaternion.identity);
+            //Instantiate(prefab[n], this.transform.position, Quaternion.identity);
+            Instantiate(prefab[n], position, Quaternion.identity);
             //}
 
             //increment next_spawn_time
